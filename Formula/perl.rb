@@ -3,14 +3,13 @@ class Perl < Formula
   homepage "https://www.perl.org/"
   url "https://www.cpan.org/src/5.0/perl-5.30.2.tar.gz"
   sha256 "66db7df8a91979eb576fac91743644da878244cf8ee152f02cd6f5cd7a731689"
-  revision 1
+  revision OS.mac? ? 1 : 2
   head "https://github.com/perl/perl5.git", :branch => "blead"
 
   bottle do
     sha256 "b25dbfa43f3fea68a3acdf7f59e18a0d694ac18070ef60da431c0900baf14ba6" => :catalina
     sha256 "8a141e61aa0ece017735ac9860d5077921618ea4397a02b42203b6f45507b9ea" => :mojave
     sha256 "73d96330045dedca4805aac3a69f164935230b77487e20a1e326152f167a4391" => :high_sierra
-    sha256 "f6c3717740782d8d7fd0a36bc246d0bf8a59ad13c1d80b29159fd517182c2067" => :x86_64_linux
   end
 
   uses_from_macos "expat"
