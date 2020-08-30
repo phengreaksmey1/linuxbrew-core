@@ -33,6 +33,8 @@ class Zbar < Formula
   depends_on "xz"
 
   def install
+    ENV["XML_CATALOG_FILES"] = "#{etc}/xml/catalog" unless OS.mac?
+
     system "autoreconf", "-fvi"
 
     args = %W[
