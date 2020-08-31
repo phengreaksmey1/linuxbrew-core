@@ -13,7 +13,6 @@ class Zbar < Formula
   end
 
   bottle do
-    cellar :any
     sha256 "1d045da2a7bd7f348a19643fa203e3bac2a41f3b4b913acf6c3dcbfd8ab451f0" => :catalina
     sha256 "9494f562f1fca7e00c461e46768f61305802facfc4127d7253d7ffa1690af485" => :mojave
     sha256 "6cc127961a7a4047fa3b10f5ffcdccbc15a26b13f43d232a18aa7e5fea131e01" => :high_sierra
