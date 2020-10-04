@@ -38,7 +38,7 @@ class Libxshmfence < Formula
         return 0;
       }
     EOS
-    system ENV.cc, "test.c"
+    system ENV.cc, "test.c", "-I#{include}", "-I#{Formula["xorgproto"].include}", "-L#{lib}", "-lLibxshmfence"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end
 end
