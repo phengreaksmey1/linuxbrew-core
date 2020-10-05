@@ -14,12 +14,34 @@ class Deno < Formula
 
   depends_on "llvm" => :build
   depends_on "rust" => :build
-  depends_on xcode: ["10.0", :build] if OS.mac? # required by v8 7.9+
-  depends_on :macos # Due to Python 2 (see https://github.com/denoland/deno/issues/2893)
 
   uses_from_macos "xz"
 
+  on_macos do
+    depends_on xcode: ["10.0", :build] # required by v8 7.9+
+  end
+
+  on_linux do
+    depends_on "pkg-config" => :build
+    depends_on "pypy" => :build
+    depends_on "glib"
+  end
+
   def install
+    unless OS.mac?
+      # build gn with llvm clang too (g++ is too old)
+      ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
+      # use pypy for Python 2 build scripts
+      ENV["PYTHON"] = Formula["pypy"].opt_bin/"pypy"
+
+      mkdir "pypyshim" do
+        ln_s Formula["pypy"].opt_bin/"pypy", "python"
+        ln_s Formula["pypy"].opt_bin/"pypy", "python2"
+      end
+
+      ENV.prepend_path "PATH", buildpath/"pypyshim"
+    end
+
     # env args for building a release build with our clang, ninja and gn
     ENV["GN"] = buildpath/"gn/out/gn"
     # build rusty_v8 from source
@@ -30,10 +52,8 @@ class Deno < Formula
     ENV["CLANG_BASE_PATH"] = Formula["llvm"].prefix
     ENV.remove "HOMEBREW_LIBRARY_PATHS", Formula["llvm"].opt_lib
 
-    system "core/libdeno/build/linux/sysroot_scripts/install-sysroot.py", "--arch=amd64" unless OS.mac?
-
     cd "cli" do
-      system "cargo", "install", "-vv", *std_cargo_args
+      system "cargo", "install", *std_cargo_args
     end
 
     # Install bash and zsh completion
