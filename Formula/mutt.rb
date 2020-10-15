@@ -39,11 +39,14 @@ class Mutt < Formula
   depends_on "gpgme"
   depends_on "openssl@1.1"
   depends_on "tokyo-cabinet"
-  depends_on "krb5" unless OS.mac?
 
   uses_from_macos "bzip2"
   uses_from_macos "ncurses"
   uses_from_macos "zlib"
+
+  on_linux do
+    depends_on "krb5"
+  end
 
   conflicts_with "tin",
     because: "both install mmdf.5 and mbox.5 man pages"

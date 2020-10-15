@@ -19,7 +19,9 @@ class Libproxy < Formula
 
   uses_from_macos "perl"
 
-  depends_on "glib" unless OS.mac?
+  on_linux do
+    depends_on "glib"
+  end
 
   def install
     xy = Language::Python.major_minor_version Formula["python@3.8"].opt_bin/"python3"

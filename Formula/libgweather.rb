@@ -22,7 +22,10 @@ class Libgweather < Formula
   depends_on "geocode-glib"
   depends_on "gtk+3"
   depends_on "libsoup"
-  depends_on "glibc" unless OS.mac?
+
+  on_linux do
+    depends_on "glibc"
+  end
 
   def install
     # Needed by intltool (xml::parser)

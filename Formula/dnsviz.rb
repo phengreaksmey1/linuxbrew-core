@@ -26,8 +26,6 @@ class Dnsviz < Formula
   depends_on "libsodium"
   depends_on "openssl@1.1"
   depends_on "python@3.8"
-  # Fix build error of m2crypto, see https://github.com/crocs-muni/roca/issues/1#issuecomment-336893096
-  depends_on "swig" unless OS.mac?
 
   on_linux do
     # Fix build error of m2crypto, see https://github.com/crocs-muni/roca/issues/1#issuecomment-336893096

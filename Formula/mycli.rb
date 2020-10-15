@@ -21,11 +21,11 @@ class Mycli < Formula
 
   depends_on "openssl@1.1"
   depends_on "python@3.9"
-  depends_on "libffi" unless OS.mac?
+
+  uses_from_macos "libffi"
 
   on_linux do
     depends_on "pkg-config" => :build
-    depends_on "libffi"
   end
 
   resource "asn1crypto" do

@@ -13,7 +13,9 @@ class Nift < Formula
     sha256 "ad8de8249476ad1dc5aa2f4a079fb0b1eff33aabca711da7eef51d0205b71a63" => :x86_64_linux
   end
 
-  depends_on "luajit" unless OS.mac?
+  on_linux do
+    depends_on "luajit"
+  end
 
   def install
     system "make"

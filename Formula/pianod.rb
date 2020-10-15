@@ -16,7 +16,10 @@ class Pianod < Formula
   depends_on "json-c"
   depends_on "libao"
   depends_on "libgcrypt"
-  depends_on "ffmpeg" unless OS.mac?
+
+  on_linux do
+    depends_on "ffmpeg"
+  end
 
   def install
     ENV["OBJCXXFLAGS"] = "-std=c++11"

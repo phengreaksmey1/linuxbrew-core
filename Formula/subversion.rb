@@ -41,16 +41,24 @@ class Subversion < Formula
   depends_on "lz4"
   depends_on "openssl@1.1" # For Serf
   depends_on "perl"
-  depends_on "python@3.8" unless OS.mac?
   depends_on "sqlite"
   depends_on "utf8proc"
-
-  depends_on "libtool" unless OS.mac?
 
   uses_from_macos "expat"
   uses_from_macos "krb5"
   uses_from_macos "ruby"
   uses_from_macos "zlib"
+
+  on_macos do
+    # Prevent "-arch ppc" from being pulled in from Perl's $Config{ccflags}
+    # Prevent linking into a Python Framework
+    patch :DATA
+  end
+
+  on_linux do
+    depends_on "libtool"
+    depends_on "python@3.8"
+  end
 
   resource "py3c" do
     url "https://github.com/encukou/py3c/archive/v1.1.tar.gz"
@@ -62,10 +70,6 @@ class Subversion < Formula
     mirror "https://archive.apache.org/dist/serf/serf-1.3.9.tar.bz2"
     sha256 "549c2d21c577a8a9c0450facb5cca809f26591f048e466552240947bdf7a87cc"
   end
-
-  # Prevent "-arch ppc" from being pulled in from Perl's $Config{ccflags}
-  # Prevent linking into a Python Framework
-  patch :DATA if OS.mac?
 
   def install
     py3c_prefix = buildpath/"py3c"

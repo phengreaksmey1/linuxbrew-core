@@ -15,9 +15,12 @@ class Click < Formula
   end
 
   depends_on "rust" => :build
-  depends_on "tcl-tk" unless OS.mac?
 
   uses_from_macos "expect" => :test
+
+  on_linux do
+    depends_on "tcl-tk"
+  end
 
   def install
     system "cargo", "install", *std_cargo_args

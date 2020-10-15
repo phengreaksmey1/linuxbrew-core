@@ -34,7 +34,10 @@ class Opencv < Formula
   depends_on "tbb"
   depends_on "vtk"
   depends_on "webp"
-  depends_on "openblas" unless OS.mac?
+
+  on_linux do
+    depends_on "openblas"
+  end
 
   resource "contrib" do
     url "https://github.com/opencv/opencv_contrib/archive/4.5.0.tar.gz"

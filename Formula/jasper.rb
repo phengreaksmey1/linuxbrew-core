@@ -13,8 +13,11 @@ class Jasper < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "freeglut" unless OS.mac?
   depends_on "jpeg"
+
+  on_linux do
+    depends_on "freeglut"
+  end
 
   def install
     mkdir "build" do

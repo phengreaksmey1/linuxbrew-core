@@ -59,7 +59,9 @@ class Ffmpeg < Formula
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
 
-  depends_on "libxv" unless OS.mac?
+  on_linux do
+    depends_on "libxv"
+  end
 
   # https://trac.ffmpeg.org/ticket/8760
   # Remove in next release
